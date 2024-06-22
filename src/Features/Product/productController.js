@@ -22,6 +22,7 @@ addProduct(req,res){
 
 rateProduct(req,res){}
 getOneproduct(req,res){
+  
     const id = req.params.id;
     const product = ProductModel.Get(id);
     if(!product){
@@ -30,6 +31,21 @@ getOneproduct(req,res){
         return res.status(200).send(product);
     }
 }
+
+filterProducts(req, res) {
+    console.log("sjgf")
+    const minPrice = req.query.minPrice;
+    const maxPrice = req.query.maxPrice;
+    const category = req.query.category;
+    
+  const data = ProductModel.filter(
+    minPrice,maxPrice,category
+  )
+    res.status(201).send(data);
+}
+
+
+
 
 
 }

@@ -4,17 +4,19 @@ export default class ProductModel{
     id, 
     name, 
     desc,
+    price,
     imgUrl,
     category,
-    price,
+    
     sizes)
     {
     this.id = id;
     this.name =name;
     this.desc = desc;
+    this.price = price;
     this.imgUrl = imgUrl;
     this.category = category;
-    this.price = price;
+    
     this.sizes = sizes;
     
  }
@@ -32,6 +34,20 @@ export default class ProductModel{
   products.push(product);
   return product;
  }
+
+ static filter(minPrice, maxPrice, category){
+  const result = products.filter((product)=>{
+    return(
+    (!minPrice || 
+      product.price >= minPrice) &&
+    (!maxPrice || 
+      product.price <= maxPrice) &&
+    (!category || 
+      product.category == category)
+    );
+  });
+  return result;
+}
 
 }
 

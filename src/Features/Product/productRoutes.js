@@ -5,10 +5,11 @@ const ProductRouter = express.Router();
 
 
 const productController = new Productcontroller();
-
+ProductRouter.get('/filter', productController.filterProducts);
 ProductRouter.get('/', productController.getAllProduct);
 ProductRouter.post('/', uploadfile.single('imgUrl'), productController.addProduct);
 ProductRouter.get('/:id', productController.getOneproduct);
+
 
 
 export default ProductRouter;
