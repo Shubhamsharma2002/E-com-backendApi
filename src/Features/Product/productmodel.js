@@ -19,6 +19,10 @@ export default class ProductModel{
     
  }
 
+ static Get(id){
+  const product = products.find((i) => i.id == id);
+  return product;
+ }
  static GetAll (){
     return products;
  }

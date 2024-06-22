@@ -21,7 +21,15 @@ addProduct(req,res){
 }
 
 rateProduct(req,res){}
-getOneproduct(req,res){}
+getOneproduct(req,res){
+    const id = req.params.id;
+    const product = ProductModel.Get(id);
+    if(!product){
+        res.status(500).send("product not found");
+    } else{
+        return res.status(200).send(product);
+    }
+}
 
 
 }
