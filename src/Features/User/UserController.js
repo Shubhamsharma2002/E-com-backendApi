@@ -20,4 +20,11 @@ export default class UserController{
            return res.status(201).send('login sucessfully');
         }
     }
+
+
+    getAllUser(req,res){
+        const data = UserModel.getAll();
+
+        res.status(201).send(data);
+    }
 }
