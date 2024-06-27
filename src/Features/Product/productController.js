@@ -20,7 +20,21 @@ addProduct(req,res){
     res.status(201).send(newdata);
 }
 
-rateProduct(req,res){}
+rateProduct(req,res){
+     const userId = req.query.userId;
+     const productId = req.query.productId;
+     const rating = req.query.rating;
+
+     const error = ProductModel.rate(
+        userId,productId,rating
+     );
+
+     if(error){
+        return res.status(400).send(error);
+     }else{
+        return res.status(200).send('rating added')
+     }
+}
 getOneproduct(req,res){
   
     const id = req.params.id;
