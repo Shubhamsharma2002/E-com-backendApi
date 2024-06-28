@@ -13,6 +13,7 @@ const jwtAuth = (req, res, next)=>{
             token,
             "Ar7iftQpYa"
         );
+        req.userID = payload.userID;
         console.log(payload);
     } catch(err){
         // 4. return error.

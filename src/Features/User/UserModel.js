@@ -42,5 +42,12 @@ var users = [
     email : 'user@123',
     password:'1234@user',
     type: 'user'
+   },
+   {
+    id:3,
+    name : 'shubhamuser',
+    email : 'user@123',
+    password:'1234@user',
+    type: 'user'
    }
 ]

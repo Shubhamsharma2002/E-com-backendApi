@@ -6,6 +6,7 @@ import  ProductRouter from './src/Features/Product/productRoutes.js'
 import UserRouter from './src/Features/User/UserRoutes.js';
 // import basicAuthorizer from './src/Middleware/basicAuthMiddleware.js';
 import jwtAuth from './src/Middleware/JwtAuthMiddleware.js';
+import CartRouter from './src/Features/Cart/cartRoutes.js';
 const server = express();
 const Port = process.env.PORT;
 
@@ -17,6 +18,7 @@ server.use(bodyParser.json());
 
 // using jwt auth middleware
 server.use('/api/products',jwtAuth ,ProductRouter);
+server.use('/api/cartitems',jwtAuth, CartRouter)
 server.use('/api/users',UserRouter);
 server.get('/', (req, res) =>{
     res.send("we are logical");
