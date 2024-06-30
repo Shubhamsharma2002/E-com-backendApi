@@ -3,6 +3,7 @@ import express from 'express';
 import 'dotenv/config';
 import bodyParser from 'body-parser';
 import swagger from 'swagger-ui-express';
+import cors from 'cors';
 import  ProductRouter from './src/Features/Product/productRoutes.js'
 import UserRouter from './src/Features/User/UserRoutes.js';
 // import basicAuthorizer from './src/Middleware/basicAuthMiddleware.js';
@@ -23,10 +24,29 @@ server.use(bodyParser.json());
 // using basicAuth middleware
 // server.use('/api/products', basicAuthorizer,ProductRouter);
 
+// handling CORS policy way 1
+// server.use((req,res)=>{
+//     res.header('Access-Control-Allow-Origin','*');
+//   res.header('Access-Control-Allow-Headers','*');
+//   res.header('Access-Control-Allow-Methods','*');
+//   // return ok for preflight request.
+//   if(req.method=="OPTIONS"){
+//     return res.sendStatus(200);
+//   }
+//   next();
+// })
+
+// handling CORS policy way 2
+
+server.use(cors());
 // using jwt auth middleware
 server.use('/api/products',jwtAuth ,ProductRouter);
 server.use('/api/cartitems',jwtAuth, CartRouter)
 server.use('/api/users',UserRouter);
+// handling 404 error
+server.use((req,res)=>{
+    res.status(404).send('api not found')
+})
 server.get('/', (req, res) =>{
     res.send("we are logical");
 });
