@@ -2,16 +2,20 @@
 import express from 'express';
 import 'dotenv/config';
 import bodyParser from 'body-parser';
+import swagger from 'swagger-ui-express';
 import  ProductRouter from './src/Features/Product/productRoutes.js'
 import UserRouter from './src/Features/User/UserRoutes.js';
 // import basicAuthorizer from './src/Middleware/basicAuthMiddleware.js';
 import jwtAuth from './src/Middleware/JwtAuthMiddleware.js';
 import CartRouter from './src/Features/Cart/cartRoutes.js';
+
+
+import apiDocs from './swagger.json'assert{type:'json'};
 const server = express();
 const Port = process.env.PORT;
 
 // use body parser
-
+server.use('/api-docs', swagger.serve,swagger.setup(apiDocs))
 server.use(bodyParser.json());
 // using basicAuth middleware
 // server.use('/api/products', basicAuthorizer,ProductRouter);
