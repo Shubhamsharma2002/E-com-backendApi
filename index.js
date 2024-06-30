@@ -9,8 +9,11 @@ import UserRouter from './src/Features/User/UserRoutes.js';
 import jwtAuth from './src/Middleware/JwtAuthMiddleware.js';
 import CartRouter from './src/Features/Cart/cartRoutes.js';
 
+//  swageer 2.0
+// import apiDocs from './swagger.json'assert{type:'json'};
+// swagger 3.0
+import apiDocs from './swagger3.json'assert{type:'json'};
 
-import apiDocs from './swagger.json'assert{type:'json'};
 const server = express();
 const Port = process.env.PORT;
 
