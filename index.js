@@ -47,6 +47,12 @@ server.use('/api/users',UserRouter);
 server.use((req,res)=>{
     res.status(404).send('api not found')
 })
+
+// errror handler midleware
+server.use((err,req,res,next)=>{
+    console.log(err);
+    res.status(503).send('something went we will solve this')
+})
 server.get('/', (req, res) =>{
     res.send("we are logical");
 });
