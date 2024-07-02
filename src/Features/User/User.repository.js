@@ -31,4 +31,18 @@ export default class Userrepo{
              throw new Error("user not signup")
         }   
        }
+
+       async findbyemail(email){
+        // 1 get db 
+    
+        try {
+        const db = getDB();
+        const collection = db.collection("user");
+       
+        return await collection.findOne({email});
+            
+        } catch (error) {
+             throw new Error("user not signup")
+        }   
+       }
 }
