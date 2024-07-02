@@ -1,5 +1,6 @@
 import Jwt from 'jsonwebtoken';
 import UserModel from "./UserModel.js";
+import Userrepo from './User.repository.js';
 
 
 
@@ -38,19 +39,22 @@ export default class UserController{
 // Authentication using JWT 
 
 export default class UserController{
+    constructor(){
+        this.userrepo = new Userrepo();
+    }
 
-
-    Signup(req,res){
+   async Signup(req,res){
 
         const{name,email,password,type} = req.body;
-       const user =  UserModel.Signup(name,email,password,type);
+       const user =   new UserModel(name,email,password,type);
+       await this.userrepo.Signup(user);
        console.log(user);
        res.status(201).send(user);
     }
 
-    SigIn(req,res){
+    async SigIn(req,res){
 
-        const result = UserModel.Sigin(req.body.email,req.body.password);
+        const result = await this.userrepo.Sigin(req.body.email,req.body.password);
         if(!result){
             return res.status(400).send("invalid credential");
         }else{

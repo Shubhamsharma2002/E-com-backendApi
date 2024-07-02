@@ -14,7 +14,7 @@ import CartRouter from './src/Features/Cart/cartRoutes.js';
 // import apiDocs from './swagger.json'assert{type:'json'};
 // swagger 3.0
 import apiDocs from './swagger3.json'assert{type:'json'};
-import connectmongodb from './src/config/db.js';
+import {connectmongodb} from './src/config/db.js';
 
 const server = express();
 const Port = process.env.PORT;
