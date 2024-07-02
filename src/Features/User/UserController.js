@@ -66,7 +66,9 @@ export default class UserController{
             const result = await bcrypt.compare(req.body.password, user.password);
             if(result){
               // 3. Create token.
-              const token = Jwt.sign({userID:result.id, email:result.email},"Ar7iftQpYa",{expiresIn:'1h'})
+             
+              const token = Jwt.sign({userID:result.id, email:result.email},"process.env.scerete",{expiresIn:'1h'})
+             
           // 4. Send token.
           return res.status(200).send(token);
             } else {

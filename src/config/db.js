@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 
-const url = "mongodb://localhost:27017/Ecomdb"
+const url = process.env.uri;
+
 
 let client;
 export const connectmongodb = ()=>{
