@@ -1,22 +1,20 @@
+import Productrepo from "./product.repository.js";
 import ProductModel from "./productmodel.js";
 
 export default class Productcontroller{
-
-getAllProduct(req,res){
-    let products = ProductModel.GetAll();
+constructor(){
+    this.productrepo = new Productrepo();
+}
+async getAllProduct(req,res){
+    let products = await this.productrepo.getAll();
 
     res.status(200).send({products:products});
 }
 
-addProduct(req,res){
+async addProduct(req,res){
     const {name,price,sizes} = req.body;
-    const newProduct = {
-        name,
-        price:parseFloat(price),
-        sizes : sizes.split(','),
-        imgUrl:req.file.filename,
-    }
-    const newdata = ProductModel.add(newProduct);
+    const newProduct = new ProductModel(name,null,parseFloat(price),req.file.filename,null,sizes.split(','));
+    const newdata = await this.productrepo.add(newProduct);
     res.status(201).send(newdata);
 }
 
@@ -35,10 +33,10 @@ rateProduct(req,res){
         return res.status(200).send('rating added')
      }
 }
-getOneproduct(req,res){
+async getOneproduct(req,res){
   
     const id = req.params.id;
-    const product = ProductModel.Get(id);
+    const product =  await  this.productrepo.get(id);
     if(!product){
         res.status(500).send("product not found");
     } else{

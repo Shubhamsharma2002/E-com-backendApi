@@ -2,16 +2,14 @@ import UserModel from "../User/UserModel.js";
 export default class ProductModel{
 
  constructor(
-    id, 
+    
     name, 
     desc,
     price,
     imgUrl,
-    category,
-    
-    sizes)
+    category,sizes,id)
     {
-    this.id = id;
+    this._id = id;
     this.name =name;
     this.desc = desc;
     this.price = price;
