@@ -18,21 +18,26 @@ async addProduct(req,res){
     res.status(201).send(newdata);
 }
 
-rateProduct(req,res){
-     const userId = req.query.userId;
-     const productId = req.query.productId;
-     const rating = req.query.rating;
+async rateProduct(req,res){
+    
+        const userID = req.userID;
+        console.log(userID)
+        const productId = req.body.productId;
+        const rating = req.body.rating;
+   
+        const error =  await this.productrepo.rate(
+           userID,productId,rating
+        );
+   
+        if(error){
+           return res.status(400).send(error);
+        }else{
+           return res.status(200).send('rating added')
+        }
+    }
+    
+     
 
-     const error = ProductModel.rate(
-        userId,productId,rating
-     );
-
-     if(error){
-        return res.status(400).send(error);
-     }else{
-        return res.status(200).send('rating added')
-     }
-}
 async getOneproduct(req,res){
   
     const id = req.params.id;
@@ -44,13 +49,13 @@ async getOneproduct(req,res){
     }
 }
 
-filterProducts(req, res) {
+async filterProducts(req, res) {
     console.log("sjgf")
     const minPrice = req.query.minPrice;
     const maxPrice = req.query.maxPrice;
     const category = req.query.category;
     
-  const data = ProductModel.filter(
+  const data = await this.productrepo.filter(
     minPrice,maxPrice,category
   )
     res.status(201).send(data);

@@ -5,8 +5,12 @@ const ProductRouter = express.Router();
 
 
 const productController = new Productcontroller();
-ProductRouter.post('/rate', productController.rateProduct);
-ProductRouter.get('/filter', productController.filterProducts);
+ProductRouter.post('/rate', (req,res) =>{
+    productController.rateProduct(req,res)
+});
+ProductRouter.get('/filter', (req,res)=>{
+    productController.filterProducts(req,res)
+});
 ProductRouter.get('/', (req,res)=>{
     productController.getAllProduct(req,res)
 });
