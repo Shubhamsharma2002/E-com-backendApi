@@ -1,42 +1,52 @@
+import Cartitemrepo from "./cart.repo.js";
 import Cartitemsmodel from "./cartModel.js";
 
 export class CartItemsController{
-    add(req,res){
-        const {productID, quantity} = req.query;
+
+      constructor(){
+        this.cartItemRepo = new Cartitemrepo();
+      }
+
+   async add(req,res){
+    try{
+        const {productID, quantity} = req.body;
         const userID = req.userID;
 
-        const result =  Cartitemsmodel.add(productID,userID,quantity);
-         if(!result){
-            res.status(400).send("something went wrong");
-         }else{
-            console.log(result)
-            res.status(201).send('cart item updated')
-         }
+         await this.cartItemRepo.add(productID,userID,quantity);
+         res.status(200).send("cart is updated ");
+    }catch(err){
+        console.log(err);
+        res.status(401).send("item is not added in cart")
+    }
+        
+        
         
 
     }
 
-    get(req,res){
-
-        const userID = req.userID;
-        const items = Cartitemsmodel.get(userID);
-
-        if(!items){
-         return res.status(401).send('no such item found related to the user');
-        }else{
-          return res.status(200).send(items);
-        }
+   async get(req,res){
+         try{
+            const userID = req.userID;
+            const items = await  this.cartItemRepo.get(userID);   
+            return res.status(200).send(items);
+         }catch(err){
+             console.log(err);
+             throw new Error("something went wrong")
+         }
+        
+    
     }
 
-    delete(req,res){
+    async delete(req,res){
         const userID = req.userID;
         const cartitemID = req.params.id;
-        const error = Cartitemsmodel.delete(
+        const isdeleted =  await this.cartItemRepo.delete(
+            userID,
             cartitemID,
-            userID
+     
         );
-        if(error){
-            return res.status(400).send(error);
+        if(!isdeleted){
+            return res.status(400).send('item not found');
         }else{
             res.status(200).send('item deleted suceesfully');
         }
