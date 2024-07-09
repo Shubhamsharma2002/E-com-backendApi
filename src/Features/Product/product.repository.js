@@ -143,10 +143,27 @@ async rate(userID, productID, rating) {
               
               
           } catch (error) {
-              throw new Error("Error in rating: " + error.message);
+              throw new Error("Error in rating: ");
           }
      
  }
  
+
+ async averageProductpricePerCategory(){
+    try {
+        const db = getDB();
+        return await db.collection(this.collection).aggregate([
+            {
+                $group:{
+                    _id:"$category",
+                    averagePrice:{$avg:"$price"}
+                }
+            }
+        ]).toArray();
+        
+    } catch (error) {
+        throw new Error("Error in rating: ");
+    }
+ }
 }
 

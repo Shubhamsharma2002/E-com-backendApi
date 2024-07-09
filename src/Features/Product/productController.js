@@ -64,5 +64,13 @@ async filterProducts(req, res) {
 
 
 
-
+  async getAveragePrice(req,res){
+    try {
+        const result = await this.productrepo.averageProductpricePerCategory();
+        return res.status(200).send(result);
+    } catch (error) {
+           console.log(error);
+           throw new Error("something went wrong we will handle soon ")
+    }
+  }
 }
