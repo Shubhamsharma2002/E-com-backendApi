@@ -1,0 +1,11 @@
+place order
+
+1.get cart item of user and calculate the price.
+2.create a record for order
+3. reduce the stock (products, quanitty)
+4. clera cart
+
+
+5. deduct the payment
+6. inform to seller
+7. inform to courier

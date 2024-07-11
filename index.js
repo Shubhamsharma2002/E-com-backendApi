@@ -15,6 +15,7 @@ import CartRouter from './src/Features/Cart/cartRoutes.js';
 // swagger 3.0
 import apiDocs from './swagger3.json'assert{type:'json'};
 import {connectmongodb} from './src/config/db.js';
+import OroductRouter from './src/Features/Order/orderRouter.js';
 
 const server = express();
 const Port = process.env.PORT;
@@ -44,6 +45,7 @@ server.use(cors());
 server.use('/api/products',jwtAuth ,ProductRouter);
 server.use('/api/cartitems',jwtAuth, CartRouter)
 server.use('/api/users',UserRouter);
+server.use('/api/order', jwtAuth,OroductRouter)
 // handling 404 error
 server.use((req,res)=>{
     res.status(404).send('api not found')
