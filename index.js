@@ -14,6 +14,7 @@ import CartRouter from './src/Features/Cart/cartRoutes.js';
 // import apiDocs from './swagger.json'assert{type:'json'};
 // swagger 3.0
 import apiDocs from './swagger3.json'assert{type:'json'};
+import { connectionUsingMoongose } from './src/config/moongoose.js';
 
 const server = express();
 const Port = process.env.PORT;
@@ -62,4 +63,5 @@ server.get('/', (req, res) =>{
 
 server.listen(Port,(req,res)=>{
      console.log("yes we are fired on server no 8000")
+     connectionUsingMoongose()
 });
