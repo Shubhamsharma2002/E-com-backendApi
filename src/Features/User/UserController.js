@@ -82,7 +82,7 @@ export default class UserController {
       userID: user._id,
       email: user.email,
     },
-    'AIb6d35fvJM4O9pXqXQNla2jBCH9kuLz',
+    process.env.scerete,
     {
       expiresIn: '1h',
     }
@@ -99,6 +99,19 @@ export default class UserController {
         console.log(err);
         return res.status(200).send("Something went wrong");
       }
+    }
+
+    async resetPassword(req,res,next){
+      const {newPassword} = req.body;
+      const userID = req.userID;
+      const hashedPassword = await bcrypt.hash(newPassword,12);
+      try {
+           await this.userRepository.resetpassword(userID,hashedPassword);
+           res.status(200).send("password is reset")
+      } catch (error) {
+        console.log(error);
+        return res.status(200).send("something went wrong")
+      } 
     }
   }
   

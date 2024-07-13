@@ -38,4 +38,21 @@ export default class UserRepository{
         throw new Error("Something went wrong with database", 500);
       }
       }
+
+      async resetpassword(userID,newPassword){
+        try {
+            let user = await UserModel.findById(userID);
+
+            if(user){
+                user.password = newPassword;
+                user.save();
+            }else{
+                throw new Error("user not found")
+            }
+            
+        } catch (error) {
+            console.log(error);
+            throw new Error("something went wrong")
+        }
+      }
 }
