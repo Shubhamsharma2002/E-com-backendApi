@@ -45,7 +45,7 @@ export default class UserController {
       this.userRepository = new UserRepository();
     }
   
-    async signUp(req, res) {
+    async signUp(req, res ) {
       const {
         name,
         email,
